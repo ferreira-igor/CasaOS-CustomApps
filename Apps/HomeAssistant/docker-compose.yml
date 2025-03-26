@@ -1,0 +1,38 @@
+name: ferreira-homeassistant
+
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: ghcr.io/home-assistant/home-assistant:2025.3.3
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/config
+        target: /config
+      - type: bind
+        source: /etc/localtime
+        target: /etc/localtime
+        read_only: true
+      - type: bind
+        source: /run/dbus
+        target: /run/dbus
+        read_only: true
+
+x-casaos:
+  architectures:
+    - amd64
+    - arm64
+  author: Igor
+  developer: Igor
+  category: Home Automation
+  icon: https://icon.casaos.io/main/all/home-assistant.png
+  index: /
+  main: homeassistant
+  is_uncontrolled: false
+  port_map: "8123"
+  scheme: http
+  store_app_id: ferreira-homeassistant
+  title:
+    en_us: Home Assistant

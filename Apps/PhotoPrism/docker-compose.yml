@@ -1,0 +1,46 @@
+name: ferreira-photoprism
+
+services:
+  photoprism:
+    container_name: photoprism
+    image: docker.io/photoprism/photoprism:250228
+    restart: unless-stopped
+    privileged: true
+    network_mode: bridge
+    ports:
+      - target: 2342
+        published: "2342"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID
+        target: /photoprism/storage
+      - type: bind
+        source: /DATA/Gallery
+        target: /photoprism/originals
+      - type: bind
+        source: /DATA/Downloads
+        target: /photoprism/import
+    environment:
+      - PHOTOPRISM_ADMIN_PASSWORD=insecure
+      - PHOTOPRISM_UPLOAD_NSFW=true
+    security_opt:
+      - seccomp=unconfined
+      - apparmor=unconfined
+
+x-casaos:
+  architectures:
+    - amd64
+    - arm64
+  author: Igor
+  developer: Igor
+  category: Gallery
+  icon: https://icon.casaos.io/main/all/photoprism.png
+  index: /
+  main: photoprism
+  is_uncontrolled: false
+  port_map: "2342"
+  scheme: http
+  store_app_id: ferreira-photoprism
+  title:
+    en_us: PhotoPrism

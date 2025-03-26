@@ -1,0 +1,49 @@
+name: ferreira-scrutiny
+
+services:
+  scrutiny:
+    container_name: scrutiny
+    image: ghcr.io/analogj/scrutiny:master-omnibus
+    restart: unless-stopped
+    privileged: true
+    network_mode: bridge
+    ports:
+      - target: 8080
+        published: "38080"
+        protocol: tcp
+      - target: 8086
+        published: "38086"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/config
+        target: /opt/scrutiny/config
+      - type: bind
+        source: /DATA/AppData/$AppID/influxdb
+        target: /opt/scrutiny/influxdb
+      - type: bind
+        source: /run/udev
+        target: /run/udev
+        read_only: true
+    devices:
+      - /dev/sda:/dev/sda
+      - /dev/sdb:/dev/sdb
+    cap_add:
+      - SYS_RAWIO
+
+x-casaos:
+  architectures:
+    - amd64
+    - arm64
+  author: Igor
+  developer: Igor
+  category: Utilities
+  icon: https://icon.casaos.io/main/all/scrutiny.png
+  index: /
+  main: scrutiny
+  is_uncontrolled: false
+  port_map: "38080"
+  scheme: http
+  store_app_id: ferreira-scrutiny
+  title:
+    en_us: Scrutiny
