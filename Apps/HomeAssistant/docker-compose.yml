@@ -3,7 +3,7 @@ name: ferreira-homeassistant
 services:
   homeassistant:
     container_name: homeassistant
-    image: ghcr.io/home-assistant/home-assistant:2025.3.3
+    image: ghcr.io/home-assistant/home-assistant:2025.3.4
     restart: unless-stopped
     privileged: true
     network_mode: host
