@@ -3,7 +3,7 @@ name: ferreira-photoprism
 services:
   photoprism:
     container_name: photoprism
-    image: docker.io/photoprism/photoprism:250228
+    image: docker.io/photoprism/photoprism:250321
     restart: unless-stopped
     privileged: true
     network_mode: bridge
