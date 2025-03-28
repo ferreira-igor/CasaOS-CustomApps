@@ -1,0 +1,50 @@
+name: ferreira-manyfold
+
+services:
+  manyfold:
+    container_name: manyfold
+    image: ghcr.io/manyfold3d/manyfold-solo:0.105.0
+    restart: unless-stopped
+    privileged: false
+    network_mode: bridge
+    ports:
+      - target: 3214
+        published: "3214"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/config
+        target: /config
+      - type: bind
+        source: /DATA/Gallery/Models
+        target: /models
+    environment:
+      - PGID=$PGID
+      - PUID=$PUID
+      - SECRET_KEY_BASE=a_nice_long_random_string
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - SETUID
+      - SETGID
+
+x-casaos:
+  architectures:
+    - amd64
+    - arm64
+  author: Igor
+  developer: Igor
+  category: 3D Printing
+  icon: https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/manyfold-logo.png
+  index: /
+  main: manyfold
+  is_uncontrolled: false
+  port_map: "3214"
+  scheme: http
+  store_app_id: ferreira-manyfold
+  title:
+    en_us: Manyfold
