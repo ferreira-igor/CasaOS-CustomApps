@@ -24,27 +24,30 @@ services:
       - SECRET_KEY_BASE=a_nice_long_random_string
     security_opt:
       - no-new-privileges:true
-    cap_drop:
-      - ALL
     cap_add:
       - CHOWN
       - DAC_OVERRIDE
       - SETUID
       - SETGID
+    cap_drop:
+      - ALL
+    hostname: manyfold
 
 x-casaos:
   architectures:
     - amd64
     - arm64
   author: Igor
-  developer: Igor
   category: 3D Printing
+  developer: Manyfold
+  hostname: "manyfold"
   icon: https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/manyfold-logo.png
   index: /
-  main: manyfold
   is_uncontrolled: false
+  main: manyfold
   port_map: "3214"
   scheme: http
   store_app_id: ferreira-manyfold
   title:
+    custom: "Manyfold"
     en_us: Manyfold

@@ -6,6 +6,7 @@ services:
     image: docker.io/photoprism/photoprism:250321
     restart: unless-stopped
     privileged: true
+    network_mode: bridge
     ports:
       - target: 2342
         published: "2342"
@@ -24,21 +25,10 @@ services:
       - PHOTOPRISM_ADMIN_USER=admin
       - PHOTOPRISM_ADMIN_PASSWORD=insecure
       - PHOTOPRISM_UPLOAD_NSFW=true
-      - PHOTOPRISM_DATABASE_DRIVER=mysql
-      - PHOTOPRISM_DATABASE_SERVER=photoprism_db:3306
-      - PHOTOPRISM_DATABASE_NAME=photoprism
-      - PHOTOPRISM_DATABASE_USER=photoprism
-      - PHOTOPRISM_DATABASE_PASSWORD=photoprism
     security_opt:
       - seccomp:unconfined
       - apparmor:unconfined
-    depends_on:
-      photoprism_db:
-        condition: service_healthy
-        required: true
     hostname: photoprism
-    networks:
-      - photoprism_net
     stop_grace_period: 10s
     healthcheck:
       test:
@@ -46,53 +36,6 @@ services:
         - curl
         - -f
         - http://localhost:2342/api/v1/status
-
-  photoprism_db:
-    container_name: photoprism_db
-    image: docker.io/mariadb:11.4
-    restart: unless-stopped
-    privileged: false
-    ports:
-      - target: 3306
-        published: "3306"
-        protocol: tcp
-    volumes:
-      - type: bind
-        source: /DATA/AppData/$AppID/database
-        target: /var/lib/mysql
-    environment:
-      - MARIADB_AUTO_UPGRADE=1
-      - MARIADB_INITDB_SKIP_TZINFO=1
-      - MARIADB_DATABASE=photoprism
-      - MARIADB_USER=photoprism
-      - MARIADB_PASSWORD=photoprism
-      - MARIADB_ROOT_PASSWORD=insecure
-    security_opt:
-      - seccomp:unconfined
-      - apparmor:unconfined
-    command:
-      - --innodb-buffer-pool-size=512M
-        --transaction-isolation=READ-COMMITTED
-        --character-set-server=utf8mb4
-        --collation-server=utf8mb4_unicode_ci
-        --max-connections=512
-        --innodb-rollback-on-timeout=OFF
-        --innodb-lock-wait-timeout=120
-    hostname: photoprism_db
-    networks:
-      - photoprism_net
-    stop_grace_period: 5s
-    healthcheck:
-      test:
-        - CMD
-        - healthcheck.sh
-        - --connect
-        - --innodb_initialized
-
-networks:
-  photoprism_net:
-    name: photoprism_net
-    driver: bridge
 
 x-casaos:
   architectures:
@@ -109,4 +52,5 @@ x-casaos:
   scheme: http
   store_app_id: ferreira-photoprism
   title:
+    custom: "PhotoPrism"
     en_us: PhotoPrism
