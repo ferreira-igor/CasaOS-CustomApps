@@ -31,7 +31,6 @@ services:
       - SETGID
     cap_drop:
       - ALL
-    hostname: manyfold
 
 x-casaos:
   architectures:
@@ -40,7 +39,6 @@ x-casaos:
   author: Igor
   category: 3D Printing
   developer: Manyfold
-  hostname: "manyfold"
   icon: https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/manyfold-logo.png
   index: /
   is_uncontrolled: false

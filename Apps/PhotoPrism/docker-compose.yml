@@ -28,7 +28,6 @@ services:
     security_opt:
       - seccomp:unconfined
       - apparmor:unconfined
-    hostname: photoprism
     stop_grace_period: 10s
     healthcheck:
       test:
