@@ -30,6 +30,8 @@ services:
       - /dev/sdb:/dev/sdb
     cap_add:
       - SYS_RAWIO
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/health"]
 
 x-casaos:
   architectures:

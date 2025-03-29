@@ -17,13 +17,15 @@ services:
       - type: bind
         source: /DATA/Media
         target: /media
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8096/health"]
 
 x-casaos:
   architectures:
     - amd64
     - arm64
   author: Igor
-  developer: Igor
+  developer: Jellyfin
   category: Media
   icon: https://icon.casaos.io/main/all/jellyfin.png
   index: /
