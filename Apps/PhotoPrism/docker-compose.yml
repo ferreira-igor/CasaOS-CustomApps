@@ -6,6 +6,7 @@ services:
     image: docker.io/photoprism/photoprism:250321
     restart: unless-stopped
     privileged: true
+    network_mode: bridge
     depends_on:
       - photoprism_db
     ports:
@@ -34,8 +35,6 @@ services:
     security_opt:
       - seccomp:unconfined
       - apparmor:unconfined
-    networks:
-      - photoprism_net
     stop_grace_period: 10s
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:2342/api/v1/status"]
@@ -62,20 +61,7 @@ services:
     security_opt:
       - seccomp:unconfined
       - apparmor:unconfined
-    networks:
-      - photoprism_net
     stop_grace_period: 10s
-    healthcheck:
-      test: [ "CMD", "healthcheck.sh", "--su-mysql", "--connect", "--innodb_initialized" ]
-      start_period: 1m
-      start_interval: 10s
-      interval: 1m
-      timeout: 5s
-      retries: 3
-
-networks:
-  photoprism_net:
-    driver: bridge
 
 x-casaos:
   architectures:
