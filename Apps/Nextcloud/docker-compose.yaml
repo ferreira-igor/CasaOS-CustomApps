@@ -3,7 +3,7 @@ name: ferreira-nextcloud
 services:
   nextcloud:
     container_name: nextcloud
-    image: lscr.io/linuxserver/nextcloud:latest
+    image: lscr.io/linuxserver/nextcloud:31.0.2-ls374
     restart: unless-stopped
     privileged: false
     network_mode: bridge
