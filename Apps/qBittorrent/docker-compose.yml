@@ -38,8 +38,6 @@ x-casaos:
   architectures:
     - amd64
     - arm64
-  author: Igor
-  developer: Igor
   category: Downloader
   icon: https://icon.casaos.io/main/all/qbittorrent.png
   index: /

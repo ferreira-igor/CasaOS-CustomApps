@@ -31,14 +31,16 @@ services:
     cap_add:
       - SYS_RAWIO
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/api/health"]
+      test:
+        - CMD
+        - curl
+        - -f
+        - http://localhost:8080/api/health
 
 x-casaos:
   architectures:
     - amd64
     - arm64
-  author: Igor
-  developer: Igor
   category: Utilities
   icon: https://icon.casaos.io/main/all/scrutiny.png
   index: /

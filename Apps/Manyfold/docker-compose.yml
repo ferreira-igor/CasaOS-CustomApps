@@ -36,9 +36,7 @@ x-casaos:
   architectures:
     - amd64
     - arm64
-  author: Igor
   category: 3D Printing
-  developer: Manyfold
   icon: https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/manyfold-logo.png
   index: /
   is_uncontrolled: false
@@ -47,5 +45,4 @@ x-casaos:
   scheme: http
   store_app_id: ferreira-manyfold
   title:
-    custom: "Manyfold"
     en_us: Manyfold

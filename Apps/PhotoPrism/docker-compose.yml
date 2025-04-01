@@ -40,9 +40,7 @@ x-casaos:
   architectures:
     - amd64
     - arm64
-  author: Igor
   category: Gallery
-  developer: PhotoPrism
   icon: https://icon.casaos.io/main/all/photoprism.png
   index: /
   is_uncontrolled: false
@@ -51,5 +49,4 @@ x-casaos:
   scheme: http
   store_app_id: ferreira-photoprism
   title:
-    custom: "PhotoPrism"
     en_us: PhotoPrism
