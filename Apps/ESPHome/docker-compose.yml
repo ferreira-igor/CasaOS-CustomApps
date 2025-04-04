@@ -24,7 +24,7 @@ x-casaos:
     - amd64
     - arm64
   category: Home Automation
-  icon: https://icon.casaos.io/main/all/esphome.png
+  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/esphome.png
   index: /
   main: esphome
   is_uncontrolled: false

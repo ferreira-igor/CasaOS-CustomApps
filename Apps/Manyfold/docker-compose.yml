@@ -3,7 +3,7 @@ name: ferreira-manyfold
 services:
   manyfold:
     container_name: manyfold
-    image: ghcr.io/manyfold3d/manyfold-solo:0.105.0
+    image: ghcr.io/manyfold3d/manyfold-solo:0.106.0
     restart: unless-stopped
     privileged: false
     network_mode: bridge
@@ -37,7 +37,7 @@ x-casaos:
     - amd64
     - arm64
   category: 3D Printing
-  icon: https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/manyfold-logo.png
+  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/manyfold.png
   index: /
   is_uncontrolled: false
   main: manyfold

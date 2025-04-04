@@ -29,7 +29,7 @@ x-casaos:
     - amd64
     - arm64
   category: Media
-  icon: https://icon.casaos.io/main/all/jellyfin.png
+  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/jellyfin.png
   index: /
   main: jellyfin
   is_uncontrolled: false

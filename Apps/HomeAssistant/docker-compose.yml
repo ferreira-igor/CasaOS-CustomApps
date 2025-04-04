@@ -3,7 +3,7 @@ name: ferreira-homeassistant
 services:
   homeassistant:
     container_name: homeassistant
-    image: ghcr.io/home-assistant/home-assistant:2025.3.4
+    image: ghcr.io/home-assistant/home-assistant:2025.4
     restart: unless-stopped
     privileged: true
     network_mode: host
@@ -25,7 +25,7 @@ x-casaos:
     - amd64
     - arm64
   category: Home Automation
-  icon: https://icon.casaos.io/main/all/home-assistant.png
+  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/home-assistant.png
   index: /
   main: homeassistant
   is_uncontrolled: false

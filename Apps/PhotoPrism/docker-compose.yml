@@ -41,7 +41,7 @@ x-casaos:
     - amd64
     - arm64
   category: Gallery
-  icon: https://icon.casaos.io/main/all/photoprism.png
+  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/photoprism.png
   index: /
   is_uncontrolled: false
   main: photoprism

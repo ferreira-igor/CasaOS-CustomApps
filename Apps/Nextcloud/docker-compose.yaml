@@ -3,32 +3,28 @@ name: ferreira-nextcloud
 services:
   nextcloud:
     container_name: nextcloud
-    image: lscr.io/linuxserver/nextcloud:31.0.2-ls374
+    image: docker.io/library/nextcloud:31
     restart: unless-stopped
     privileged: false
     network_mode: bridge
     ports:
-      - target: 443
-        published: "5443"
-        protocol: tcp
+      - target: 80
+        published: "8000"
+        protocol: tcp                
     volumes:
       - type: bind
-        source: /DATA/AppData/$AppID/config
-        target: /config
+        source: /DATA/AppData/$AppID/var/www/html
+        target: /var/www/html
       - type: bind
         source: /DATA/Documents
-        target: /data
-    environment:
-      - PGID=$PGID
-      - PUID=$PUID
-      - TZ=$TZ
+        target: /var/www/html/data
 
 x-casaos:
   architectures:
     - amd64
     - arm64
   category: Cloud
-  icon: https://icon.casaos.io/main/all/nextcloud.png
+  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/nextcloud.png
   index: /
   is_uncontrolled: false
   main: nextcloud

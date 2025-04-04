@@ -39,7 +39,7 @@ x-casaos:
     - amd64
     - arm64
   category: Downloader
-  icon: https://icon.casaos.io/main/all/qbittorrent.png
+  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/qbittorrent.png
   index: /
   main: qbittorrent
   is_uncontrolled: false
