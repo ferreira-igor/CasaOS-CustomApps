@@ -28,8 +28,8 @@ x-casaos:
   index: /
   is_uncontrolled: false
   main: nextcloud
-  port_map: "5443"
-  scheme: https
+  port_map: "8000"
+  scheme: http
   store_app_id: ferreira-nextcloud
   title:
     en_us: Nextcloud
