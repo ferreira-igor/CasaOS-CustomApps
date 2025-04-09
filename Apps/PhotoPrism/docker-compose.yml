@@ -2,18 +2,20 @@ name: ferreira-photoprism
 
 services:
   photoprism:
-    container_name: photoprism
-    image: docker.io/photoprism/photoprism:250321
+    container_name: photoprism_app
+    image: photoprism/photoprism:250321
     restart: unless-stopped
-    privileged: true
-    network_mode: bridge
     ports:
       - target: 2342
         published: "2342"
         protocol: tcp
+    depends_on:
+      mariadb:
+        condition: service_started
+        required: true
     volumes:
       - type: bind
-        source: /DATA/AppData/$AppID/storage
+        source: /DATA/AppData/$AppID/photoprism
         target: /photoprism/storage
       - type: bind
         source: /DATA/Gallery
@@ -25,21 +27,58 @@ services:
       - PHOTOPRISM_ADMIN_USER=admin
       - PHOTOPRISM_ADMIN_PASSWORD=insecure
       - PHOTOPRISM_UPLOAD_NSFW=true
+      - PHOTOPRISM_DATABASE_DRIVER=mysql
+      - PHOTOPRISM_DATABASE_SERVER=mariadb:3306
+      - PHOTOPRISM_DATABASE_NAME=photoprism
+      - PHOTOPRISM_DATABASE_USER=photoprism
+      - PHOTOPRISM_DATABASE_PASSWORD=photoprism
     security_opt:
       - seccomp:unconfined
       - apparmor:unconfined
-    stop_grace_period: 10s
-    healthcheck:
-      test:
-        - CMD
-        - curl
-        - -f
-        - http://localhost:2342/api/v1/status
+    stop_grace_period: 15s
+    networks:
+      - photoprism
+
+  mariadb:
+    container_name: photoprism_database
+    image: mariadb:11
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/mariadb
+        target: /var/lib/mysql
+    environment:
+      - MARIADB_AUTO_UPGRADE=1
+      - MYSQL_INITDB_SKIP_TZINFO=1
+      - MYSQL_ROOT_PASSWORD=insecure
+      - MYSQL_DATABASE=photoprism
+      - MYSQL_USER=photoprism
+      - MYSQL_PASSWORD=photoprism
+    command:
+      - --innodb-buffer-pool-size=512M
+      - --transaction-isolation=READ-COMMITTED
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --max-connections=512
+      - --innodb-rollback-on-timeout=OFF
+      - --innodb-lock-wait-timeout=120
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    stop_grace_period: 15s
+    networks:
+      - photoprism
+        
+networks:
+  photoprism:
+    name: photoprism
+    driver: bridge
 
 x-casaos:
   architectures:
     - amd64
     - arm64
+  author: Igor
   category: Gallery
   icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/photoprism.png
   index: /
@@ -49,4 +88,5 @@ x-casaos:
   scheme: http
   store_app_id: ferreira-photoprism
   title:
+    custom: "PhotoPrism"
     en_us: PhotoPrism

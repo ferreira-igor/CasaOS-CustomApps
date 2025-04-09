@@ -5,7 +5,6 @@ services:
     container_name: jellyfin
     image: ghcr.io/jellyfin/jellyfin:10.10.6
     restart: unless-stopped
-    privileged: false
     network_mode: host
     volumes:
       - type: bind

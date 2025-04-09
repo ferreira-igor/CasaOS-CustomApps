@@ -6,7 +6,6 @@ services:
     image: ghcr.io/analogj/scrutiny:master-omnibus
     restart: unless-stopped
     privileged: true
-    network_mode: bridge
     ports:
       - target: 8080
         published: "5080"
@@ -41,6 +40,7 @@ x-casaos:
   architectures:
     - amd64
     - arm64
+  author: Igor
   category: Utilities
   icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/scrutiny.png
   index: /
@@ -50,4 +50,5 @@ x-casaos:
   scheme: http
   store_app_id: ferreira-scrutiny
   title:
+    custom: "Scrutiny"
     en_us: Scrutiny

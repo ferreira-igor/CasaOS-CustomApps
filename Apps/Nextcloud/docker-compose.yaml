@@ -2,34 +2,101 @@ name: ferreira-nextcloud
 
 services:
   nextcloud:
-    container_name: nextcloud
-    image: docker.io/library/nextcloud:31
+    container_name: nextcloud_app
+    image: nextcloud:31
     restart: unless-stopped
-    privileged: false
-    network_mode: bridge
     ports:
       - target: 80
         published: "8000"
-        protocol: tcp                
+        protocol: tcp
+    depends_on:
+      mariadb:
+        condition: service_started
+        required: true
+      redis:
+        condition: service_started
+        required: true
     volumes:
       - type: bind
-        source: /DATA/AppData/$AppID/var/www/html
+        source: /DATA/AppData/$AppID/nextcloud
         target: /var/www/html
       - type: bind
         source: /DATA/Documents
         target: /var/www/html/data
+    environment:
+      - MYSQL_HOST=mariadb:3306
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=nextcloud
+      - REDIS_HOST=redis:6379
+      - REDIS_HOST_PASSWORD=nextcloud
+    stop_grace_period: 15s
+    networks:
+      - nextcloud
+
+  mariadb:
+    container_name: nextcloud_database
+    image: mariadb:11
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/mariadb
+        target: /var/lib/mysql
+    environment:
+      - MARIADB_AUTO_UPGRADE=1
+      - MYSQL_INITDB_SKIP_TZINFO=1
+      - MYSQL_ROOT_PASSWORD=insecure
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=nextcloud
+    command:
+      - --innodb-buffer-pool-size=512M
+      - --transaction-isolation=READ-COMMITTED
+      - --log-bin=binlog
+      - --binlog-format=ROW
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    stop_grace_period: 15s
+    networks:
+      - nextcloud
+
+  redis:
+    container_name: nextcloud_cache
+    image: redis:7
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/redis
+        target: /data
+    command:
+      - redis-server
+      - --save 60 1
+      - --loglevel warning
+      - --requirepass nextcloud
+    stop_grace_period: 15s
+    networks:
+      - nextcloud
+
+networks:
+  nextcloud:
+    name: nextcloud
+    driver: bridge
 
 x-casaos:
   architectures:
     - amd64
     - arm64
+  author: Igor
   category: Cloud
+  hostname: ""
   icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/nextcloud.png
   index: /
-  is_uncontrolled: false
+  is_uncontrolled: true
   main: nextcloud
   port_map: "8000"
   scheme: http
   store_app_id: ferreira-nextcloud
   title:
+    custom: "Nextcloud"
     en_us: Nextcloud

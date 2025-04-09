@@ -5,8 +5,6 @@ services:
     container_name: manyfold
     image: ghcr.io/manyfold3d/manyfold-solo:0.106.0
     restart: unless-stopped
-    privileged: false
-    network_mode: bridge
     ports:
       - target: 3214
         published: "3214"
