@@ -1,0 +1,37 @@
+name: ferreira-plex
+
+services:
+  plex:
+    container_name: plex_app
+    image: plexinc/pms-docker:1.41.5.9522-a96edc606
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - type: bind
+        source: /DATA/AppData/$AppID/config
+        target: /config
+      - type: bind
+        source: /DATA/AppData/$AppID/transcode
+        target: /transcode
+      - type: bind
+        source: /DATA/Media
+        target: /media
+
+x-casaos:
+  architectures:
+    - amd64
+    - arm64
+  author: Igor
+  developer: Plex
+  category: Media
+  hostname: ""
+  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/plex-light.png
+  index: /
+  main: plex
+  is_uncontrolled: false
+  port_map: "32400"
+  scheme: http
+  store_app_id: $AppID
+  title:
+    custom: "Plex"
+    en_us: Plex

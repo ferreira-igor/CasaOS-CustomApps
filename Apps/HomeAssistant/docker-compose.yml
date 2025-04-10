@@ -2,7 +2,7 @@ name: ferreira-homeassistant
 
 services:
   homeassistant:
-    container_name: homeassistant
+    container_name: homeassistant_app
     image: ghcr.io/home-assistant/home-assistant:2025.4
     restart: unless-stopped
     privileged: true
@@ -24,13 +24,17 @@ x-casaos:
   architectures:
     - amd64
     - arm64
+  author: Igor
+  developer: Open Home Foundation
   category: Home Automation
-  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/home-assistant.png
+  hostname: ""
+  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/home-assistant-light.png
   index: /
   main: homeassistant
   is_uncontrolled: false
   port_map: "8123"
   scheme: http
-  store_app_id: ferreira-homeassistant
+  store_app_id: $AppID
   title:
+    custom: "Home Assistant"
     en_us: Home Assistant

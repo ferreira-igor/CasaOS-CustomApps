@@ -35,9 +35,9 @@ services:
     security_opt:
       - seccomp:unconfined
       - apparmor:unconfined
-    stop_grace_period: 15s
     networks:
       - photoprism
+    stop_grace_period: 30s
 
   mariadb:
     container_name: photoprism_database
@@ -65,10 +65,10 @@ services:
     security_opt:
       - seccomp:unconfined
       - apparmor:unconfined
-    stop_grace_period: 15s
     networks:
       - photoprism
-        
+    stop_grace_period: 30s
+
 networks:
   photoprism:
     name: photoprism
@@ -79,14 +79,16 @@ x-casaos:
     - amd64
     - arm64
   author: Igor
+  developer: PhotoPrism UG
   category: Gallery
-  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/photoprism.png
+  hostname: ""
+  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/photoprism-light.png
   index: /
   is_uncontrolled: false
   main: photoprism
   port_map: "2342"
   scheme: http
-  store_app_id: ferreira-photoprism
+  store_app_id: $AppID
   title:
     custom: "PhotoPrism"
     en_us: PhotoPrism

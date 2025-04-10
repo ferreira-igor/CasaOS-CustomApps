@@ -2,7 +2,7 @@ name: ferreira-jellyfin
 
 services:
   jellyfin:
-    container_name: jellyfin
+    container_name: jellyfin_app
     image: ghcr.io/jellyfin/jellyfin:10.10.6
     restart: unless-stopped
     network_mode: host
@@ -16,24 +16,22 @@ services:
       - type: bind
         source: /DATA/Media
         target: /media
-    healthcheck:
-      test:
-        - CMD
-        - curl
-        - -f
-        - http://localhost:8096/health
 
 x-casaos:
   architectures:
     - amd64
     - arm64
+  author: Igor
+  developer: Jellyfin
   category: Media
-  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/jellyfin.png
+  hostname: ""
+  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/jellyfin-light.png
   index: /
   main: jellyfin
   is_uncontrolled: false
   port_map: "8096"
   scheme: http
-  store_app_id: ferreira-jellyfin
+  store_app_id: $AppID
   title:
+    custom: "Jellyfin"
     en_us: Jellyfin

@@ -30,9 +30,9 @@ services:
       - MYSQL_PASSWORD=nextcloud
       - REDIS_HOST=redis
       - REDIS_HOST_PASSWORD=nextcloud
-    stop_grace_period: 15s
     networks:
       - nextcloud
+    stop_grace_period: 30s
 
   mariadb:
     container_name: nextcloud_database
@@ -57,9 +57,9 @@ services:
     security_opt:
       - seccomp:unconfined
       - apparmor:unconfined
-    stop_grace_period: 15s
     networks:
       - nextcloud
+    stop_grace_period: 30s
 
   redis:
     container_name: nextcloud_cache
@@ -74,9 +74,9 @@ services:
       - --save 60 1
       - --loglevel warning
       - --requirepass nextcloud
-    stop_grace_period: 15s
     networks:
       - nextcloud
+    stop_grace_period: 30s
 
 networks:
   nextcloud:
@@ -88,15 +88,16 @@ x-casaos:
     - amd64
     - arm64
   author: Igor
+  developer: Nextcloud GmbH
   category: Cloud
   hostname: ""
-  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/nextcloud.png
+  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/nextcloud-light.png
   index: /
   is_uncontrolled: true
   main: nextcloud
   port_map: "8000"
   scheme: http
-  store_app_id: ferreira-nextcloud
+  store_app_id: $AppID
   title:
     custom: "Nextcloud"
     en_us: Nextcloud

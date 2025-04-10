@@ -2,7 +2,7 @@ name: ferreira-esphome
 
 services:
   esphome:
-    container_name: esphome
+    container_name: esphome_app
     image: ghcr.io/esphome/esphome:2025.3
     restart: unless-stopped
     privileged: true
@@ -23,13 +23,17 @@ x-casaos:
   architectures:
     - amd64
     - arm64
+  author: Igor
+  developer: Open Home Foundation
   category: Home Automation
-  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/esphome.png
+  hostname: ""
+  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/esphome-light.png
   index: /
   main: esphome
   is_uncontrolled: false
   port_map: "6052"
   scheme: http
-  store_app_id: ferreira-esphome
+  store_app_id: $AppID
   title:
+    custom: "ESPHome"
     en_us: ESPHome

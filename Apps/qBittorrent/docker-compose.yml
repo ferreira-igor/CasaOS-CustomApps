@@ -36,7 +36,10 @@ x-casaos:
   architectures:
     - amd64
     - arm64
+  author: Igor
+  developer: 
   category: Downloader
+  hostname: ""
   icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/qbittorrent.png
   index: /
   main: qbittorrent
