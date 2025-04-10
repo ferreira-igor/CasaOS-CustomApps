@@ -2,7 +2,7 @@ name: ferreira-qbittorrent
 
 services:
   qbittorrent:
-    container_name: qbittorrent
+    container_name: qbittorrent_app
     image: lscr.io/linuxserver/qbittorrent:5.0.4-r0-ls387
     restart: unless-stopped
     ports:
@@ -37,15 +37,16 @@ x-casaos:
     - amd64
     - arm64
   author: Igor
-  developer: 
+  developer:  The qBittorrent project
   category: Downloader
   hostname: ""
-  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/qbittorrent.png
+  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/qbittorrent-light.png
   index: /
   main: qbittorrent
   is_uncontrolled: false
   port_map: "8080"
   scheme: http
-  store_app_id: ferreira-qbittorrent
+  store_app_id: $AppID
   title:
+    custom: "qBittorrent"
     en_us: qBittorrent

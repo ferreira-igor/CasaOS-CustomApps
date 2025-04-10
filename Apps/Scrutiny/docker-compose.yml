@@ -2,7 +2,7 @@ name: ferreira-scrutiny
 
 services:
   scrutiny:
-    container_name: scrutiny
+    container_name: scrutiny_app
     image: ghcr.io/analogj/scrutiny:master-omnibus
     restart: unless-stopped
     privileged: true
@@ -29,26 +29,22 @@ services:
       - /dev/sdb:/dev/sdb
     cap_add:
       - SYS_RAWIO
-    healthcheck:
-      test:
-        - CMD
-        - curl
-        - -f
-        - http://localhost:8080/api/health
 
 x-casaos:
   architectures:
     - amd64
     - arm64
   author: Igor
+  developer:  AnalogJ
   category: Utilities
-  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/scrutiny.png
+  hostname: ""
+  icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/scrutiny-light.png
   index: /
   main: scrutiny
   is_uncontrolled: false
   port_map: "5080"
   scheme: http
-  store_app_id: ferreira-scrutiny
+  store_app_id: $AppID
   title:
     custom: "Scrutiny"
     en_us: Scrutiny
